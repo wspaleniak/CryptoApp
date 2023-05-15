@@ -33,7 +33,7 @@ struct CoinImageView: View {
 
 struct CoinImageView_Previews: PreviewProvider {
     static var previews: some View {
-        CoinImageView(coin: dev.coin)
+        CoinImageView(coin: dev.bitcoin)
             .padding()
             .previewLayout(.sizeThatFits)
     }

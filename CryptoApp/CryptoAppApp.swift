@@ -10,15 +10,13 @@ import SwiftUI
 @main
 struct CryptoAppApp: App {
     
-    @State private var vm = HomeViewModel()
-    
     var body: some Scene {
         WindowGroup {
             NavigationView {
                 HomeView()
                     .toolbar(.hidden, for: .navigationBar)
             }
-            .environmentObject(vm)
+            .environmentObject(HomeViewModel(dataService: CoinDataService()))
         }
     }
 }

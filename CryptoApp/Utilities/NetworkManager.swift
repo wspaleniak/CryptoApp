@@ -38,9 +38,10 @@ class NetworkManager {
     static func handleURLResponse(output: URLSession.DataTaskPublisher.Output, url: URL) throws -> Data {
         guard let response = output.response as? HTTPURLResponse,
               response.statusCode >= 200 && response.statusCode < 300 else {
-            print()
+            print("Status Code: \((output.response as? HTTPURLResponse)?.statusCode ?? 000), URL: \(url.absoluteString)")
             throw NetworkError.badURLResponse(url)
         }
+        print("Status Code: \(response.statusCode), URL: \(url.absoluteString)")
         return output.data
     }
     

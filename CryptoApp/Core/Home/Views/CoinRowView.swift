@@ -68,7 +68,7 @@ extension CoinRowView {
 // MARK: - Preview
 struct CoinRowView_Previews: PreviewProvider {
     static var previews: some View {
-        CoinRowView(coin: dev.coin, showHoldingsColumn: true)
+        CoinRowView(coin: dev.bitcoin, showHoldingsColumn: true)
             .previewLayout(.sizeThatFits)
             .preferredColorScheme(.dark)
     }

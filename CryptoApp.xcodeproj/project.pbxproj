@@ -111,9 +111,9 @@
 		248A2DF629D0739E007AB6BF /* CryptoApp */ = {
 			isa = PBXGroup;
 			children = (
-				2471D6FD29F00A560058C67E /* Utilities */,
 				248A2DF729D0739E007AB6BF /* CryptoAppApp.swift */,
 				24B30BCC29D1961800FFA2F9 /* Extensions */,
+				2471D6FD29F00A560058C67E /* Utilities */,
 				244DD6A729E1C84F00275B52 /* Services */,
 				242CC24D29E00CD200BA0DE9 /* Models */,
 				24ACC3D229D9742F00C17493 /* Core */,
