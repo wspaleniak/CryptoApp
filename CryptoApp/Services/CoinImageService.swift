@@ -15,13 +15,31 @@ class CoinImageService {
     
     var imageSubscription: AnyCancellable?
     private let coin: Coin
+    private let fileManager = LocalFileManager.shared
+    private let folderName = "coin_images"
+    private let imageName: String
     
     init(coin: Coin) {
         self.coin = coin
-        getCoinImage(coin: coin)
+        self.imageName = coin.id
+        getCoinImage()
     }
     
-    private func getCoinImage(coin: Coin) {
+    /// Metoda zaciąga zdjęcia z lokalnego folderu i przypisuje do obiektu UIImage.
+    /// Jeśli w lokalnym folderze jest pusto, to używa metody downloadCoinImage() do pobrania zdjęć z adresu URL.
+    private func getCoinImage() {
+        if let image = fileManager.getImage(imageName: imageName, folderName: folderName) {
+            self.image = image
+            print("Zdjęcie pobrane z lokalnego folderu!")
+        } else {
+            downloadCoinImage()
+            print("Downloading image now!")
+        }
+    }
+    
+    /// Metoda pobiera zdjęcia coinów z podanego adresu URL.
+    /// Następnie zapisuje je w lokalnym folderze przy pomocy obiektu typu LocalFileManager.
+    private func downloadCoinImage() {
         guard let url = URL(string: coin.image) else { return }
         
         imageSubscription = NetworkManager
@@ -30,8 +48,11 @@ class CoinImageService {
                 return UIImage(data: data)
             }
             .sink(receiveCompletion: NetworkManager.handleCompletion) { [weak self] returnedImage in
-                self?.image = returnedImage
-                self?.imageSubscription?.cancel()
+                guard let image = returnedImage,
+                      let self else { return }
+                self.image = image
+                self.fileManager.saveImage(image, imageName: self.imageName, folderName: self.folderName)
+                self.imageSubscription?.cancel()
             }
     }
 }

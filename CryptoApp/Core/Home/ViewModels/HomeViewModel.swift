@@ -22,10 +22,10 @@ class HomeViewModel: ObservableObject {
     }
     
     // MARK: Metoda dodająca subskrybowanie
-    // dodajemy obserwowanie tablicy allCoins
-    // tablica znajduje się w klasie CoinDataService
-    // za każdym razem gdy zmieni się jej wartość, przypisujemy ją do tablicy allCoins zdefiniowanej w klasie HomeViewModel
-    // .store - przechowuje subskrybcje w zmiennej cancellables
+    /// Dodajemy obserwowanie tablicy allCoins.
+    /// Tablica znajduje się w klasie CoinDataService.
+    /// Za każdym razem gdy zmieni się jej wartość, przypisujemy ją do tablicy allCoins zdefiniowanej w klasie HomeViewModel.
+    /// Element .store - przechowuje subskrybcje w zmiennej cancellables.
     func addSubscribers() {
         dataService.allCoinsPublisher
             .sink { [weak self] returnedCoins in

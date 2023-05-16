@@ -24,6 +24,7 @@
 		24ACC3DB29D9787600C17493 /* CircleButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24ACC3DA29D9787600C17493 /* CircleButtonView.swift */; };
 		24ACC3DD29D9832100C17493 /* CircleButtonAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24ACC3DC29D9832100C17493 /* CircleButtonAnimationView.swift */; };
 		24B30BCE29D1966A00FFA2F9 /* Color+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B30BCD29D1966A00FFA2F9 /* Color+Ex.swift */; };
+		92EBC0702A141D9E00FBD1B2 /* LocalFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EBC06F2A141D9E00FBD1B2 /* LocalFileManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		24ACC3DA29D9787600C17493 /* CircleButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButtonView.swift; sourceTree = "<group>"; };
 		24ACC3DC29D9832100C17493 /* CircleButtonAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButtonAnimationView.swift; sourceTree = "<group>"; };
 		24B30BCD29D1966A00FFA2F9 /* Color+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Ex.swift"; sourceTree = "<group>"; };
+		92EBC06F2A141D9E00FBD1B2 /* LocalFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFileManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				2471D6FE29F00AAA0058C67E /* NetworkManager.swift */,
+				92EBC06F2A141D9E00FBD1B2 /* LocalFileManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 				244DD6A629E160CF00275B52 /* HomeViewModel.swift in Sources */,
 				242CC25529E03D1800BA0DE9 /* Double+Ex.swift in Sources */,
 				24ACC3D729D974C600C17493 /* HomeView.swift in Sources */,
+				92EBC0702A141D9E00FBD1B2 /* LocalFileManager.swift in Sources */,
 				248A2DF829D0739E007AB6BF /* CryptoAppApp.swift in Sources */,
 				242CC25329E0301200BA0DE9 /* PreviewProvider+Ex.swift in Sources */,
 				24ACC3DB29D9787600C17493 /* CircleButtonView.swift in Sources */,
