@@ -16,7 +16,12 @@ struct CryptoAppApp: App {
                 HomeView()
                     .toolbar(.hidden, for: .navigationBar)
             }
-            .environmentObject(HomeViewModel(dataService: CoinDataService()))
+            .environmentObject(
+                HomeViewModel(
+                    coinDataService: CoinDataService(),
+                    marketDataService: MarketDataService()
+                )
+            )
         }
     }
 }

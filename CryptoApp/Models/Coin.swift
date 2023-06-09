@@ -8,13 +8,15 @@
 import Foundation
 
 struct Coin: Codable, Identifiable {
-    // NON-OPTIONAL
+    
+    // non-optionals
     let id: String
     let symbol: String
     let name: String
     let image: String
     let currentPrice: Double
-    // OPTIONAL
+    
+    // optionals
     let marketCap: Double?
     let marketCapRank: Double?
     let fullyDilutedValuation: Double?
@@ -37,7 +39,8 @@ struct Coin: Codable, Identifiable {
     let lastUpdated: String?
     let sparklineIn7D: SparklineIn7D?
     let priceChangePercentage24HInCurrency: Double?
-    // OUR PROPERTIES
+    
+    // our properties
     // ile danego krypto ma user w danym momencie
     let currentHoldings: Double?
     
@@ -125,7 +128,7 @@ struct SparklineIn7D: Codable {
  URL:
  https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=true&price_change_percentage=24h&locale=en
  
- Dostajemy jako tablicę elementów, więc będzie dekodowane jako [Coin].self
+ >> Dostajemy jako tablicę elementów, więc będzie dekodowane jako [Coin].self
  
  JSON Response:
  [

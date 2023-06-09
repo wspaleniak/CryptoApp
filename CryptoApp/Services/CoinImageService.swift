@@ -13,11 +13,12 @@ class CoinImageService {
     
     @Published var image: UIImage? = nil
     
-    var imageSubscription: AnyCancellable?
     private let coin: Coin
-    private let fileManager = LocalFileManager.shared
     private let folderName = "coin_images"
     private let imageName: String
+    
+    private let fileManager = LocalFileManager.shared
+    var imageSubscription: AnyCancellable?
     
     init(coin: Coin) {
         self.coin = coin
@@ -47,6 +48,7 @@ class CoinImageService {
             .tryMap { (data) -> UIImage? in
                 return UIImage(data: data)
             }
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: NetworkManager.handleCompletion) { [weak self] returnedImage in
                 guard let image = returnedImage,
                       let self else { return }
