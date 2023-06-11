@@ -18,7 +18,10 @@ class DeveloperPreview {
     private init() { }
     
     // view model do mockowania
-    let homeVM = HomeViewModel(coinDataService: MockCoinDataService(), marketDataService: MockMarketDataService())
+    let homeVM = HomeViewModel(
+        coinDataService: MockCoinDataService(),
+        marketDataService: MockMarketDataService()
+    )
     
     // przykładowe statystyki
     let stat1 = Statistic(title: "Market Cap", value: "$12.5Bn", percentageChange: 25.34)
@@ -232,7 +235,7 @@ class DeveloperPreview {
                         28023.40401567159
                     ]),
                     priceChangePercentage24HInCurrency: -0.2021476386435856,
-                    currentHoldings: 1.5
+                    currentHoldings: nil
     )
     let ethereum = Coin(id: "ethereum",
                     symbol: "eth",
@@ -362,7 +365,7 @@ class DeveloperPreview {
                         1788.9872896062066
                     ]),
                     priceChangePercentage24HInCurrency: 1.3199668109486598,
-                    currentHoldings: 3.2
+                    currentHoldings: nil
     )
     let tether = Coin(id: "tether",
                     symbol: "usdt",
@@ -492,6 +495,6 @@ class DeveloperPreview {
                         0.9984509928639685
                     ]),
                     priceChangePercentage24HInCurrency: -0.004381612635176562,
-                    currentHoldings: 49.10
+                    currentHoldings: nil
     )
 }

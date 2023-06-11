@@ -36,6 +36,8 @@ class HomeViewModel: ObservableObject {
     /// Używamy .debounce(for:scheduler:) aby dodać lekkie opóźnienie, gdy użytkownik, bardzo szybko wpisuje frazy do wyszukiwarki - dzięki temu kod nie wykonuje się tak często.
     /// Element .map jako argument przyjmuje poniższą funkcję filtrującą.
     /// Element .store - przechowuje subskrybcje w zmiennej cancellables.
+    ///
+    /// Używam tutaj odwołania do Publisher'ów w serwisach, a nie zmiennych oznaczonych jako @Published ponieważ mock'uje oryginalne serwisy przy pomocy zgodności z danym protokołem. Wtedy w protokole trzeba dodać jeszcze Publisher'a, który będzie publikował zmiany dla zmiennej oznaczonej jako @Published. W protokole nie jesteśmy w stanie oznaczyć zmiennej jako @Published, natomiast możemy dać wymóg, że dany serwis zgodny z protokołem musi posiadać Publisher'a.
     func addSubscribers() {
         
         // for update all coins
