@@ -38,6 +38,11 @@ struct PortfolioView: View {
                     trailingNavigationBarButton
                 }
             }
+            .onChange(of: vm.searchText) {
+                if $0.isEmpty {
+                    removeSelectedCoin()
+                }
+            }
         }
     }
 }
@@ -130,7 +135,7 @@ extension PortfolioView {
     }
     
     private func saveButtonTapped() {
-        guard let coin = selectedCoin else { return }
+        guard let _ = selectedCoin else { return }
         // TODO: save to porfolio
         withAnimation(.easeIn) {
             showCheckmark = true
