@@ -20,7 +20,8 @@ class DeveloperPreview {
     // view model do mockowania
     let homeVM = HomeViewModel(
         coinDataService: MockCoinDataService(),
-        marketDataService: MockMarketDataService()
+        marketDataService: MockMarketDataService(),
+        portfolioDataService: PortfolioDataService()
     )
     
     // przykładowe statystyki

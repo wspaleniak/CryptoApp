@@ -10,23 +10,34 @@ import Combine
 
 class HomeViewModel: ObservableObject {
     
-    // for statistics
+    // market data
     @Published var statistics: [Statistic] = []
     
-    // for coins
+    // all coins
     @Published var allCoins: [Coin] = []
+    
+    // portfolio coins
     @Published var portfolioCoins: [Coin] = []
     
-    // for searching coins
+    // searching coins
     @Published var searchText: String = ""
     
+    // services
     private let coinDataService: CoinDataServiceProtocol
     private let marketDataService: MarketDataServiceProtocol
+    private let portfolioDataService: PortfolioDataServiceProtocol
+    
+    // store subscribers
     private var cancellables = Set<AnyCancellable>()
     
-    init(coinDataService: CoinDataServiceProtocol, marketDataService: MarketDataServiceProtocol) {
+    init(
+        coinDataService: CoinDataServiceProtocol,
+        marketDataService: MarketDataServiceProtocol,
+        portfolioDataService: PortfolioDataServiceProtocol
+    ) {
         self.coinDataService = coinDataService
         self.marketDataService = marketDataService
+        self.portfolioDataService = portfolioDataService
         addSubscribers()
     }
     
@@ -57,8 +68,33 @@ class HomeViewModel: ObservableObject {
                 self?.statistics = returnedStats
             }
             .store(in: &cancellables)
+        
+        // for update portfolio coins
+        $allCoins
+            .combineLatest(portfolioDataService.savedEntitiesPublisher)
+            .map(mapAllCoinsForPorfolio)
+            .sink { [weak self] returnedCoins in
+                self?.portfolioCoins = returnedCoins
+            }
+            .store(in: &cancellables)
     }
     
+    /// Metoda aktualizuje dane dla portfolio użytkownika.
+    /// Używamy w tym celu metody zdefiniowanej w portfolio data service.
+    func updatePortfolio(coin: Coin, amount: Double) {
+        portfolioDataService.updatePortfolio(coin: coin, amount: amount)
+    }
+    
+    /// Metoda modyfikuje dane które otrzymujemy podczas subskrybowania zmiennych dla portfolio coins.
+    private func mapAllCoinsForPorfolio(coins: [Coin], entities: [PortfolioEntity]) -> [Coin] {
+        return coins
+            .compactMap { (coin) -> Coin? in
+                guard let entity = entities.first(where: { $0.coinID == coin.id }) else { return nil }
+                return coin.updateHoldings(amount: entity.amount)
+            }
+    }
+    
+    /// Metoda modyfikuje dane które otrzymujemy podczas subskrybowania zmiennych dla market data.
     private func mapGlobalMarketData(data: MarketData?) -> [Statistic] {
         var stats: [Statistic] = []
         guard let data else {
@@ -72,6 +108,7 @@ class HomeViewModel: ObservableObject {
         return stats
     }
     
+    /// Metoda modyfikuje dane które otrzymujemy podczas subskrybowania zmiennych dla all coins.
     private func filterCoins(text: String, coins: [Coin]) -> [Coin] {
         guard !text.isEmpty else {
             return coins

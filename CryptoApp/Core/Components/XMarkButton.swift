@@ -9,10 +9,12 @@ import SwiftUI
 
 struct XMarkButton: View {
     
+    @EnvironmentObject private var vm: HomeViewModel
     let dismiss: DismissAction?
     
     var body: some View {
         Button(action: {
+            vm.searchText = ""
             dismiss?()
         }, label: {
             Image(systemName: "xmark")

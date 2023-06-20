@@ -33,6 +33,7 @@ struct PortfolioView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     XMarkButton(dismiss: dismiss)
+                        .environmentObject(vm)
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     trailingNavigationBarButton
@@ -52,13 +53,13 @@ extension PortfolioView {
     private var coinLogoList: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 10.0) {
-                ForEach(vm.allCoins) { coin in
+                ForEach(vm.searchText.isEmpty ? vm.portfolioCoins : vm.allCoins) { coin in
                     CoinLogoView(coin: coin)
                         .frame(width: 75.0)
                         .padding(6.0)
                         .onTapGesture {
                             withAnimation(.easeIn) {
-                                selectedCoin = coin
+                                updateSelectedCoin(coin: coin)
                             }
                         }
                         .background(
@@ -69,6 +70,16 @@ extension PortfolioView {
             }
             .frame(height: 120.0)
             .padding(.horizontal)
+        }
+    }
+    
+    private func updateSelectedCoin(coin: Coin) {
+        selectedCoin = coin
+        if let portfolioCoin = vm.portfolioCoins.first(where: { $0.id == coin.id }),
+           let amount = portfolioCoin.currentHoldings {
+            quantityText = "\(amount)"
+        } else {
+            quantityText = ""
         }
     }
     
@@ -125,18 +136,17 @@ extension PortfolioView {
                 Capsule()
                     .stroke(Color.theme.accent, lineWidth: 2.0)
             )
-            .opacity(
-                selectedCoin != nil &&
-                selectedCoin?.currentHoldings != Double(quantityText) &&
-                getCurrentValue() > 0 ? 1.0 : 0.0
-            )
+            .opacity(selectedCoin != nil && selectedCoin?.currentHoldings != Double(quantityText) ? 1.0 : 0.0)
         }
         .font(.headline)
     }
     
     private func saveButtonTapped() {
-        guard let _ = selectedCoin else { return }
-        // TODO: save to porfolio
+        guard let coin = selectedCoin,
+              let amount = Double(quantityText)
+        else { return }
+        vm.updatePortfolio(coin: coin, amount: amount)
+        
         withAnimation(.easeIn) {
             showCheckmark = true
         }

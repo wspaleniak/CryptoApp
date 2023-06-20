@@ -8,7 +8,15 @@
 import Foundation
 import CoreData
 
-class PortfolioDataService {
+// MARK: - Protocol
+protocol PortfolioDataServiceProtocol {
+    var savedEntities: [PortfolioEntity] { get set }
+    var savedEntitiesPublisher: Published<[PortfolioEntity]>.Publisher { get }
+    func updatePortfolio(coin: Coin, amount: Double)
+}
+
+// MARK: - Class
+class PortfolioDataService: PortfolioDataServiceProtocol {
     
     private enum Constants {
         static let containerName: String = "PortfolioContainer"
@@ -16,8 +24,11 @@ class PortfolioDataService {
     }
     
     @Published var savedEntities: [PortfolioEntity] = []
+    var savedEntitiesPublisher: Published<[PortfolioEntity]>.Publisher { return $savedEntities }
+    
     private let container: NSPersistentContainer
     
+    /// Metoda inicjalizacyjna, w której pobieramy dane z CoreData i zapisujemy w savedEntities.
     init() {
         container = NSPersistentContainer(name: Constants.containerName)
         container.loadPersistentStores { _, error in
@@ -75,6 +86,7 @@ class PortfolioDataService {
         applyChanges()
     }
     
+    /// Metoda pozwala zapisać dane w CoreData.
     private func save() {
         do {
             try container.viewContext.save()
@@ -83,6 +95,7 @@ class PortfolioDataService {
         }
     }
     
+    /// Metoda zapisuje dane oraz pobiera najwieższe dane z CoreData.
     private func applyChanges() {
         save()
         getPortfolio()

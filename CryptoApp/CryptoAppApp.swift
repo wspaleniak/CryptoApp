@@ -24,7 +24,8 @@ struct CryptoAppApp: App {
             .environmentObject(
                 HomeViewModel(
                     coinDataService: CoinDataService(),
-                    marketDataService: MarketDataService()
+                    marketDataService: MarketDataService(),
+                    portfolioDataService: PortfolioDataService()
                 )
             )
         }
