@@ -12,6 +12,7 @@ struct PortfolioView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject private var vm: HomeViewModel
     @State private var selectedCoin: Coin? = nil
+    @State private var selectedPortfolioCoin: Coin? = nil
     @State private var quantityText: String = ""
     @State private var showCheckmark: Bool = false
     
@@ -50,6 +51,8 @@ struct PortfolioView: View {
 
 // MARK: - Extension
 extension PortfolioView {
+    
+    // MARK: some Views
     private var coinLogoList: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 10.0) {
@@ -70,16 +73,6 @@ extension PortfolioView {
             }
             .frame(height: 120.0)
             .padding(.horizontal)
-        }
-    }
-    
-    private func updateSelectedCoin(coin: Coin) {
-        selectedCoin = coin
-        if let portfolioCoin = vm.portfolioCoins.first(where: { $0.id == coin.id }),
-           let amount = portfolioCoin.currentHoldings {
-            quantityText = "\(amount)"
-        } else {
-            quantityText = ""
         }
     }
     
@@ -110,14 +103,6 @@ extension PortfolioView {
         .font(.headline)
     }
     
-    private func getCurrentValue() -> Double {
-        if let quantity = Double(quantityText),
-           let selectedCoin {
-            return quantity * selectedCoin.currentPrice
-        }
-        return 0.0
-    }
-    
     private var trailingNavigationBarButton: some View {
         HStack(spacing: 8.0) {
             Image(systemName: "checkmark")
@@ -136,9 +121,29 @@ extension PortfolioView {
                 Capsule()
                     .stroke(Color.theme.accent, lineWidth: 2.0)
             )
-            .opacity(selectedCoin != nil && selectedCoin?.currentHoldings != Double(quantityText) ? 1.0 : 0.0)
+            .opacity(selectedCoin != nil && selectedPortfolioCoin?.currentHoldings != Double(quantityText) ? 1.0 : 0.0)
         }
         .font(.headline)
+    }
+    
+    // MARK: Methods
+    private func updateSelectedCoin(coin: Coin) {
+        selectedCoin = coin
+        if let portfolioCoin = vm.portfolioCoins.first(where: { $0.id == coin.id }),
+           let amount = portfolioCoin.currentHoldings {
+            selectedPortfolioCoin = portfolioCoin
+            quantityText = "\(amount)"
+        } else {
+            quantityText = ""
+        }
+    }
+    
+    private func getCurrentValue() -> Double {
+        if let quantity = Double(quantityText),
+           let selectedCoin {
+            return quantity * selectedCoin.currentPrice
+        }
+        return 0.0
     }
     
     private func saveButtonTapped() {
