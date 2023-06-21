@@ -61,20 +61,21 @@ class HomeViewModel: ObservableObject {
             }
             .store(in: &cancellables)
         
-        // for update market data
-        marketDataService.marketDataPublisher
-            .map(mapGlobalMarketData)
-            .sink { [weak self] returnedStats in
-                self?.statistics = returnedStats
-            }
-            .store(in: &cancellables)
-        
         // for update portfolio coins
         $allCoins
             .combineLatest(portfolioDataService.savedEntitiesPublisher)
-            .map(mapAllCoinsForPorfolio)
+            .map(mapAllCoinsToPorfolioCoins)
             .sink { [weak self] returnedCoins in
                 self?.portfolioCoins = returnedCoins
+            }
+            .store(in: &cancellables)
+        
+        // for update market data
+        $portfolioCoins
+            .combineLatest(marketDataService.marketDataPublisher)
+            .map(mapGlobalMarketData)
+            .sink { [weak self] returnedStats in
+                self?.statistics = returnedStats
             }
             .store(in: &cancellables)
     }
@@ -86,7 +87,7 @@ class HomeViewModel: ObservableObject {
     }
     
     /// Metoda modyfikuje dane które otrzymujemy podczas subskrybowania zmiennych dla portfolio coins.
-    private func mapAllCoinsForPorfolio(coins: [Coin], entities: [PortfolioEntity]) -> [Coin] {
+    private func mapAllCoinsToPorfolioCoins(coins: [Coin], entities: [PortfolioEntity]) -> [Coin] {
         return coins
             .compactMap { (coin) -> Coin? in
                 guard let entity = entities.first(where: { $0.coinID == coin.id }) else { return nil }
@@ -95,7 +96,7 @@ class HomeViewModel: ObservableObject {
     }
     
     /// Metoda modyfikuje dane które otrzymujemy podczas subskrybowania zmiennych dla market data.
-    private func mapGlobalMarketData(data: MarketData?) -> [Statistic] {
+    private func mapGlobalMarketData(portfolioCoins: [Coin], data: MarketData?) -> [Statistic] {
         var stats: [Statistic] = []
         guard let data else {
             return stats
@@ -103,9 +104,26 @@ class HomeViewModel: ObservableObject {
         let marketCap = Statistic(title: "Market Cap", value: data.marketCap, percentageChange: data.marketCapChangePercentage24hUsd)
         let volume = Statistic(title: "24h Volume", value: data.volume)
         let btcDominance = Statistic(title: "BTC Dominance", value: data.btcDominance)
-        let portfolio = Statistic(title: "Portfolio Value", value: "$0.00", percentageChange: 0.0)
+        
+        let portfolioValue = portfolioCoins
+            .map { $0.currentHoldingsValue }
+            .reduce(0, +)
+        let previousValue = portfolioCoins
+            .map(mapPortfolioCoinsToPreviousValue)
+            .reduce(0, +)
+        let percentageChange = ((portfolioValue - previousValue) / previousValue) * 100
+        let portfolio = Statistic(title: "Portfolio Value", value: portfolioValue.asCurrencyWith2Decimals(), percentageChange: percentageChange)
+        
         stats.append(contentsOf: [marketCap, volume, btcDominance, portfolio])
         return stats
+    }
+    
+    /// Metoda modyfikuje dane znajdujące się w portfolio coins i zwraca poprzednią wartość (sprzed 24h) danego coina.
+    private func mapPortfolioCoinsToPreviousValue(coin: Coin) -> Double {
+        let currentValue = coin.currentHoldingsValue
+        let percentChange = (coin.priceChangePercentage24H ?? 0) / 100
+        let previousValue = currentValue / (1 + percentChange)
+        return previousValue
     }
     
     /// Metoda modyfikuje dane które otrzymujemy podczas subskrybowania zmiennych dla all coins.
