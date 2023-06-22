@@ -58,6 +58,7 @@ class MockCoinDataService: CoinDataServiceProtocol {
     
     func getCoins() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            self?.allCoins.removeAll()
             self?.allCoins.append(DeveloperPreview.shared.bitcoin)
             self?.allCoins.append(DeveloperPreview.shared.ethereum)
             self?.allCoins.append(DeveloperPreview.shared.tether)

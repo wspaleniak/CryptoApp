@@ -36,6 +36,7 @@
 		929478A52A34DE73003DCDAD /* CoinLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929478A42A34DE73003DCDAD /* CoinLogoView.swift */; };
 		92CEB9312A40FF8B00295DE2 /* PortfolioContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 92CEB92F2A40FF8B00295DE2 /* PortfolioContainer.xcdatamodeld */; };
 		92CEB9332A41025600295DE2 /* PortfolioDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92CEB9322A41025600295DE2 /* PortfolioDataService.swift */; };
+		92CEB9352A44C34B00295DE2 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92CEB9342A44C34B00295DE2 /* HapticManager.swift */; };
 		92EBC0702A141D9E00FBD1B2 /* LocalFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EBC06F2A141D9E00FBD1B2 /* LocalFileManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +71,7 @@
 		929478A42A34DE73003DCDAD /* CoinLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinLogoView.swift; sourceTree = "<group>"; };
 		92CEB9302A40FF8B00295DE2 /* PortfolioContainer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PortfolioContainer.xcdatamodel; sourceTree = "<group>"; };
 		92CEB9322A41025600295DE2 /* PortfolioDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioDataService.swift; sourceTree = "<group>"; };
+		92CEB9342A44C34B00295DE2 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		92EBC06F2A141D9E00FBD1B2 /* LocalFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFileManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -111,6 +113,7 @@
 			children = (
 				2471D6FE29F00AAA0058C67E /* NetworkManager.swift */,
 				92EBC06F2A141D9E00FBD1B2 /* LocalFileManager.swift */,
+				92CEB9342A44C34B00295DE2 /* HapticManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -327,6 +330,7 @@
 				24B30BCE29D1966A00FFA2F9 /* Color+Ex.swift in Sources */,
 				24ACC3DD29D9832100C17493 /* CircleButtonAnimationView.swift in Sources */,
 				242CC24F29E00D1500BA0DE9 /* Coin.swift in Sources */,
+				92CEB9352A44C34B00295DE2 /* HapticManager.swift in Sources */,
 				929478A32A34D4B5003DCDAD /* XMarkButton.swift in Sources */,
 				2471D70429F03ADB0058C67E /* CoinImageService.swift in Sources */,
 				922BF8642A15473E00AE07DC /* SearchBarView.swift in Sources */,

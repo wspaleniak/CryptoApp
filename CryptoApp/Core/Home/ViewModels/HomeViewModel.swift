@@ -19,6 +19,9 @@ class HomeViewModel: ObservableObject {
     // portfolio coins
     @Published var portfolioCoins: [Coin] = []
     
+    // reload data
+    @Published var isLoading: Bool = false
+    
     // searching coins
     @Published var searchText: String = ""
     
@@ -76,6 +79,7 @@ class HomeViewModel: ObservableObject {
             .map(mapGlobalMarketData)
             .sink { [weak self] returnedStats in
                 self?.statistics = returnedStats
+                self?.isLoading = false
             }
             .store(in: &cancellables)
     }
@@ -84,6 +88,15 @@ class HomeViewModel: ObservableObject {
     /// Używamy w tym celu metody zdefiniowanej w portfolio data service.
     func updatePortfolio(coin: Coin, amount: Double) {
         portfolioDataService.updatePortfolio(coin: coin, amount: amount)
+    }
+    
+    /// Metoda pozwala na odświeżenie danych w aplikacji.
+    /// Pobieramy raz jeszcze dane z api dla coins oraz market data.
+    func reloadData() {
+        isLoading = true
+        coinDataService.getCoins()
+        marketDataService.getMarketData()
+        HapticManager.notification(type: .success)
     }
     
     /// Metoda modyfikuje dane które otrzymujemy podczas subskrybowania zmiennych dla portfolio coins.
