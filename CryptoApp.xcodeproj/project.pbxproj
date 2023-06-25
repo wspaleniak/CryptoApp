@@ -37,6 +37,7 @@
 		92CEB9312A40FF8B00295DE2 /* PortfolioContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 92CEB92F2A40FF8B00295DE2 /* PortfolioContainer.xcdatamodeld */; };
 		92CEB9332A41025600295DE2 /* PortfolioDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92CEB9322A41025600295DE2 /* PortfolioDataService.swift */; };
 		92CEB9352A44C34B00295DE2 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92CEB9342A44C34B00295DE2 /* HapticManager.swift */; };
+		92CEB93A2A48E0F300295DE2 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92CEB9392A48E0F300295DE2 /* DetailView.swift */; };
 		92EBC0702A141D9E00FBD1B2 /* LocalFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EBC06F2A141D9E00FBD1B2 /* LocalFileManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -72,6 +73,7 @@
 		92CEB9302A40FF8B00295DE2 /* PortfolioContainer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PortfolioContainer.xcdatamodel; sourceTree = "<group>"; };
 		92CEB9322A41025600295DE2 /* PortfolioDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioDataService.swift; sourceTree = "<group>"; };
 		92CEB9342A44C34B00295DE2 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
+		92CEB9392A48E0F300295DE2 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		92EBC06F2A141D9E00FBD1B2 /* LocalFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFileManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -172,6 +174,7 @@
 			children = (
 				24ACC3D829D977A800C17493 /* Components */,
 				24ACC3D329D9744D00C17493 /* Home */,
+				92CEB9362A48E04B00295DE2 /* Detail */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -234,6 +237,30 @@
 				922BF8652A15511A00AE07DC /* UIApplication+Ex.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		92CEB9362A48E04B00295DE2 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				92CEB9372A48E06C00295DE2 /* ViewModels */,
+				92CEB9382A48E07400295DE2 /* Views */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		92CEB9372A48E06C00295DE2 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		92CEB9382A48E07400295DE2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				92CEB9392A48E0F300295DE2 /* DetailView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -319,6 +346,7 @@
 				9235C40D2A33279300375E1A /* Statistic.swift in Sources */,
 				242CC25529E03D1800BA0DE9 /* Double+Ex.swift in Sources */,
 				24ACC3D729D974C600C17493 /* HomeView.swift in Sources */,
+				92CEB93A2A48E0F300295DE2 /* DetailView.swift in Sources */,
 				922BF8662A15511A00AE07DC /* UIApplication+Ex.swift in Sources */,
 				92EBC0702A141D9E00FBD1B2 /* LocalFileManager.swift in Sources */,
 				929478992A338699003DCDAD /* HomeStatsView.swift in Sources */,

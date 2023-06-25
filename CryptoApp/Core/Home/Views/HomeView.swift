@@ -10,8 +10,12 @@ import SwiftUI
 struct HomeView: View {
     
     @EnvironmentObject private var vm: HomeViewModel
+    
     @State private var showPortfolio: Bool = false
     @State private var showPortfolioView: Bool = false
+    
+    @State private var selectedCoin: Coin? = nil
+    @State private var showDetailView: Bool = false
     
     var body: some View {
         ZStack {
@@ -24,22 +28,29 @@ struct HomeView: View {
                 }
             
             /// content layer
-            VStack {
-                homeHeader
-                
-                HomeStatsView(showPortfolio: $showPortfolio)
-                SearchBarView(searchText: $vm.searchText)
-                
-                columnTitles
-                
-                if !showPortfolio {
-                    allCoinsList
-                        .transition(.move(edge: .leading))
-                } else {
-                    portfolioCoinsList
-                        .transition(.move(edge: .trailing))
+            NavigationStack {
+                VStack {
+                    homeHeader
+                    
+                    HomeStatsView(showPortfolio: $showPortfolio)
+                    SearchBarView(searchText: $vm.searchText)
+                    
+                    columnTitles
+                    
+                    if !showPortfolio {
+                        allCoinsList
+                            .transition(.move(edge: .leading))
+                    } else {
+                        portfolioCoinsList
+                            .transition(.move(edge: .trailing))
+                    }
+                    
+                    Spacer(minLength: 0)
                 }
-                Spacer(minLength: 0)
+                .navigationDestination(
+                    isPresented: $showDetailView,
+                    destination: { DetailLoadingView(coin: $selectedCoin) }
+                )
             }
         }
     }
@@ -83,6 +94,9 @@ extension HomeView {
             ForEach(vm.allCoins) { coin in
                 CoinRowView(coin: coin, showHoldingsColumn: showPortfolio)
                     .listRowInsets(.init(top: 10, leading: 10, bottom: 10, trailing: 20))
+                    .onTapGesture {
+                        segueToDetailView(coin: coin)
+                    }
             }
         }
         .listStyle(PlainListStyle())
@@ -93,6 +107,9 @@ extension HomeView {
             ForEach(vm.portfolioCoins) { coin in
                 CoinRowView(coin: coin, showHoldingsColumn: showPortfolio)
                     .listRowInsets(.init(top: 10, leading: 10, bottom: 10, trailing: 20))
+                    .onTapGesture {
+                        segueToDetailView(coin: coin)
+                    }
             }
         }
         .listStyle(PlainListStyle())
@@ -153,6 +170,12 @@ extension HomeView {
         .font(.caption)
         .foregroundColor(Color.theme.secondaryText)
         .padding(.horizontal, 20)
+    }
+    
+    /// Metoda zmienia stany wybranych zmiennych i pozwala wyświetlić nowe okno z detalami wybranego coina.
+    private func segueToDetailView(coin: Coin) {
+        selectedCoin = coin
+        showDetailView.toggle()
     }
 }
 
