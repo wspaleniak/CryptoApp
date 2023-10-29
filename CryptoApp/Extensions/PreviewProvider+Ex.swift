@@ -24,11 +24,6 @@ class DeveloperPreview {
         portfolioDataService: PortfolioDataService()
     )
     
-    // detail view model do mockowania
-    let detailVM = DetailViewModel(
-        coinDetailDataService: MockCoinDetailDataService()
-    )
-    
     // przykładowe statystyki
     let stat1 = Statistic(title: "Market Cap", value: "$12.5Bn", percentageChange: 25.34)
     let stat2 = Statistic(title: "Total Volume", value: "$1.23Tr")

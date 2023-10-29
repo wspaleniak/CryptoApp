@@ -52,8 +52,10 @@ struct HomeView: View {
                     destination: {
                         if let selected = selectedCoin {
                             DetailView(
-                                vm: DetailViewModel(coinDetailDataService: CoinDetailDataService(coin: selected)),
-                                coin: $selectedCoin
+                                vm: DetailViewModel(
+                                    coin: selected,
+                                    coinDetailDataService: CoinDetailDataService(coin: selected)
+                                )
                             )
                         }
                     }
