@@ -12,6 +12,7 @@ struct DetailView: View {
     
     @Environment(\.isPresented) private var isPresented
     @ObservedObject var vm: DetailViewModel
+    @State private var showFullDescription: Bool = false
     
     private let columns: [GridItem] = [
         GridItem(.flexible()),
@@ -33,11 +34,13 @@ struct DetailView: View {
                 VStack(spacing: 20) {
                     overviewTitle
                     Divider()
+                    descriptionSection
                     overviewGrid
-                    
                     additionalTitle
                     Divider()
                     additionalGrid
+                    Divider()
+                    linksSection
                 }
                 .padding()
             }
@@ -59,6 +62,29 @@ extension DetailView {
             .bold()
             .foregroundStyle(Color.theme.accent)
             .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    private var descriptionSection: some View {
+        ZStack {
+            if let coinDescription = vm.coinDescription,
+               !coinDescription.isEmpty {
+                VStack(alignment: .leading) {
+                    Text(coinDescription)
+                        .lineLimit(showFullDescription ? nil : 3)
+                        .font(.callout)
+                        .foregroundStyle(Color.theme.secondaryText)
+                    Button(showFullDescription ? "Less" : "Read more...") {
+                        withAnimation(.easeInOut) {
+                            showFullDescription.toggle()
+                        }
+                    }
+                    .tint(.blue)
+                    .font(.caption)
+                    .bold()
+                    .padding(.vertical, 2)
+                }
+            }
+        }
     }
     
     private var overviewGrid: some View {
@@ -93,6 +119,22 @@ extension DetailView {
                 StatisticView(stat: stat)
             }
         }
+    }
+    
+    private var linksSection: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            if let websiteString = vm.websiteURL,
+               let url = URL(string: websiteString) {
+                Link("Website", destination: url)
+            }
+            if let redditString = vm.redditURL,
+               let url = URL(string: redditString) {
+                Link("Reddit", destination: url)
+            }
+        }
+        .tint(.blue)
+        .font(.headline)
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
     
     private var topBarTrailingItem: some View {
