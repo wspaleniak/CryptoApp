@@ -24,6 +24,8 @@
 		24ACC3DB29D9787600C17493 /* CircleButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24ACC3DA29D9787600C17493 /* CircleButtonView.swift */; };
 		24ACC3DD29D9832100C17493 /* CircleButtonAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24ACC3DC29D9832100C17493 /* CircleButtonAnimationView.swift */; };
 		24B30BCE29D1966A00FFA2F9 /* Color+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B30BCD29D1966A00FFA2F9 /* Color+Ex.swift */; };
+		9208944C2AEED3220027577F /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9208944B2AEED3220027577F /* ChartView.swift */; };
+		9208944E2AEEE7A40027577F /* Date+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9208944D2AEEE7A40027577F /* Date+Ex.swift */; };
 		922BF8642A15473E00AE07DC /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922BF8632A15473E00AE07DC /* SearchBarView.swift */; };
 		922BF8662A15511A00AE07DC /* UIApplication+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922BF8652A15511A00AE07DC /* UIApplication+Ex.swift */; };
 		9235C40D2A33279300375E1A /* Statistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9235C40C2A33279300375E1A /* Statistic.swift */; };
@@ -63,6 +65,8 @@
 		24ACC3DA29D9787600C17493 /* CircleButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButtonView.swift; sourceTree = "<group>"; };
 		24ACC3DC29D9832100C17493 /* CircleButtonAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButtonAnimationView.swift; sourceTree = "<group>"; };
 		24B30BCD29D1966A00FFA2F9 /* Color+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Ex.swift"; sourceTree = "<group>"; };
+		9208944B2AEED3220027577F /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
+		9208944D2AEEE7A40027577F /* Date+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ex.swift"; sourceTree = "<group>"; };
 		922BF8632A15473E00AE07DC /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		922BF8652A15511A00AE07DC /* UIApplication+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Ex.swift"; sourceTree = "<group>"; };
 		9235C40C2A33279300375E1A /* Statistic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistic.swift; sourceTree = "<group>"; };
@@ -97,10 +101,10 @@
 		242CC24D29E00CD200BA0DE9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				92CEB92F2A40FF8B00295DE2 /* PortfolioContainer.xcdatamodeld */,
 				242CC24E29E00D1500BA0DE9 /* Coin.swift */,
 				9235C40C2A33279300375E1A /* Statistic.swift */,
 				9294789A2A338FCA003DCDAD /* MarketData.swift */,
-				92CEB92F2A40FF8B00295DE2 /* PortfolioContainer.xcdatamodeld */,
 				92CEB93B2A4B8F6500295DE2 /* CoinDetail.swift */,
 			);
 			path = Models;
@@ -243,6 +247,7 @@
 				242CC25229E0301200BA0DE9 /* PreviewProvider+Ex.swift */,
 				242CC25429E03D1800BA0DE9 /* Double+Ex.swift */,
 				922BF8652A15511A00AE07DC /* UIApplication+Ex.swift */,
+				9208944D2AEEE7A40027577F /* Date+Ex.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -268,6 +273,7 @@
 			isa = PBXGroup;
 			children = (
 				92CEB9392A48E0F300295DE2 /* DetailView.swift */,
+				9208944B2AEED3220027577F /* ChartView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -346,6 +352,7 @@
 				9294789D2A33994D003DCDAD /* MarketDataService.swift in Sources */,
 				929478A52A34DE73003DCDAD /* CoinLogoView.swift in Sources */,
 				9235C40F2A33299C00375E1A /* StatisticView.swift in Sources */,
+				9208944E2AEEE7A40027577F /* Date+Ex.swift in Sources */,
 				2471D70229F038C40058C67E /* CoinImageView.swift in Sources */,
 				92CEB9312A40FF8B00295DE2 /* PortfolioContainer.xcdatamodeld in Sources */,
 				2471D6FF29F00AAB0058C67E /* NetworkManager.swift in Sources */,
@@ -369,6 +376,7 @@
 				24B30BCE29D1966A00FFA2F9 /* Color+Ex.swift in Sources */,
 				24ACC3DD29D9832100C17493 /* CircleButtonAnimationView.swift in Sources */,
 				242CC24F29E00D1500BA0DE9 /* Coin.swift in Sources */,
+				9208944C2AEED3220027577F /* ChartView.swift in Sources */,
 				92CEB9352A44C34B00295DE2 /* HapticManager.swift in Sources */,
 				929478A32A34D4B5003DCDAD /* XMarkButton.swift in Sources */,
 				92CEB9402A4B992100295DE2 /* CoinDetailDataService.swift in Sources */,

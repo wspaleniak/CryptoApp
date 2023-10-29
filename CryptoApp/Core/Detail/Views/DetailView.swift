@@ -26,21 +26,28 @@ struct DetailView: View {
     
     var body: some View {
         ScrollView {
-            VStack(spacing: 20) {
-                Text("xyz")
-                    .frame(height: 150)
+            VStack {
+                ChartView(coin: vm.coin)
+                    .padding(.vertical)
                 
-                overviewTitle
-                Divider()
-                overviewGrid
-                
-                additionalTitle
-                Divider()
-                additionalGrid
+                VStack(spacing: 20) {
+                    overviewTitle
+                    Divider()
+                    overviewGrid
+                    
+                    additionalTitle
+                    Divider()
+                    additionalGrid
+                }
+                .padding()
             }
-            .padding()
         }
         .navigationTitle(vm.coin.name)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                topBarTrailingItem
+            }
+        }
     }
 }
 
@@ -87,6 +94,16 @@ extension DetailView {
             }
         }
     }
+    
+    private var topBarTrailingItem: some View {
+        HStack {
+            Text(vm.coin.symbol.uppercased())
+                .font(.headline)
+                .foregroundStyle(Color.theme.secondaryText)
+            CoinImageView(coin: vm.coin)
+                .frame(width: 25, height: 25)
+        }
+    }
 }
 
 struct DetailView_Previews: PreviewProvider {
@@ -94,7 +111,7 @@ struct DetailView_Previews: PreviewProvider {
         NavigationStack {
             DetailView(
                 vm: DetailViewModel(
-                    coin: dev.ethereum,
+                    coin: dev.bitcoin,
                     coinDetailDataService: MockCoinDetailDataService()
                 )
             )
