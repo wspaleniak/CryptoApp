@@ -7,36 +7,31 @@
 
 import SwiftUI
 
-/// Widok pomocniczy, który tworzy głowny widok DetailView gdy przekazany coin jest != nil.
-struct DetailLoadingView: View {
-    
-    @Binding var coin: Coin?
-    
-    var body: some View {
-        ZStack {
-            if let coin = coin {
-                DetailView(coin: coin)
-            }
-        }
-    }
-}
-
 /// Głowny widok pokazujący detale wybranego coina.
 struct DetailView: View {
     
-    let coin: Coin
+    @Environment(\.isPresented) private var isPresented
+    @ObservedObject var vm: DetailViewModel
+    @Binding var coin: Coin?
     
-    init(coin: Coin) {
-        self.coin = coin
+    init(vm: DetailViewModel, coin: Binding<Coin?>) {
+        self.vm =  vm
+        self._coin = coin
     }
     
     var body: some View {
-        Text(coin.name)
+        VStack {
+            Text(coin?.name ?? "name")
+            Text(vm.coinDetail?.description?.en ?? "description")
+        }
+        .onChange(of: isPresented) { isPresented in
+            if !isPresented { coin = nil }
+        }
     }
 }
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailView(coin: dev.bitcoin)
+        DetailView(vm: dev.detailVM, coin: .constant(dev.bitcoin))
     }
 }

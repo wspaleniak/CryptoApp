@@ -49,7 +49,14 @@ struct HomeView: View {
                 }
                 .navigationDestination(
                     isPresented: $showDetailView,
-                    destination: { DetailLoadingView(coin: $selectedCoin) }
+                    destination: {
+                        if let selected = selectedCoin {
+                            DetailView(
+                                vm: DetailViewModel(coinDetailDataService: CoinDetailDataService(coin: selected)),
+                                coin: $selectedCoin
+                            )
+                        }
+                    }
                 )
             }
         }

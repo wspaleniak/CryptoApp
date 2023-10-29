@@ -19,30 +19,30 @@ class HomeViewModel: ObservableObject {
         case priceReversed
     }
     
-    // market data
+    // Market data
     @Published var statistics: [Statistic] = []
     
-    // all coins
+    // All coins
     @Published var allCoins: [Coin] = []
     
-    // portfolio coins
+    // Portfolio coins
     @Published var portfolioCoins: [Coin] = []
     
-    // reload data
+    // Reload data
     @Published var isLoading: Bool = false
     
-    // searching coins
+    // Searching coins
     @Published var searchText: String = ""
     
-    // sort option
+    // Sort option
     @Published var sortOption: SortOption = .rank
     
-    // services
+    // Services
     private let coinDataService: CoinDataServiceProtocol
     private let marketDataService: MarketDataServiceProtocol
     private let portfolioDataService: PortfolioDataServiceProtocol
     
-    // store subscribers
+    // Store subscribers
     private var cancellables = Set<AnyCancellable>()
     
     init(
@@ -57,16 +57,13 @@ class HomeViewModel: ObservableObject {
     }
     
     // MARK: Metoda dodająca subskrybowanie wybranych zmiennych
-    /// Dodajemy jednoczesne obserwowanie wpisywanego w wyszukiwarkę tekstu oraz tablicy allCoins (poprzez jej Publishera).
-    /// Za każdym razem gdy zmieni się wartość wpisywanego tekstu lub tablicy, wykonujemy poniższą logikę.
     /// Używamy .debounce(for:scheduler:) aby dodać lekkie opóźnienie, gdy użytkownik, bardzo szybko wpisuje frazy do wyszukiwarki - dzięki temu kod nie wykonuje się tak często.
     /// Element .map jako argument przyjmuje poniższą funkcję filtrującą.
     /// Element .store - przechowuje subskrybcje w zmiennej cancellables.
-    ///
     /// Używam tutaj odwołania do Publisher'ów w serwisach, a nie zmiennych oznaczonych jako @Published ponieważ mock'uje oryginalne serwisy przy pomocy zgodności z danym protokołem. Wtedy w protokole trzeba dodać jeszcze Publisher'a, który będzie publikował zmiany dla zmiennej oznaczonej jako @Published. W protokole nie jesteśmy w stanie oznaczyć zmiennej jako @Published, natomiast możemy dać wymóg, że dany serwis zgodny z protokołem musi posiadać Publisher'a.
     func addSubscribers() {
         
-        // for update all coins
+        // For update all coins
         $searchText
             .combineLatest(coinDataService.allCoinsPublisher, $sortOption)
             .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
@@ -76,7 +73,7 @@ class HomeViewModel: ObservableObject {
             }
             .store(in: &cancellables)
         
-        // for update portfolio coins
+        // For update portfolio coins
         $allCoins
             .combineLatest(portfolioDataService.savedEntitiesPublisher)
             .map(mapAllCoinsToPorfolioCoins)
@@ -86,7 +83,7 @@ class HomeViewModel: ObservableObject {
             }
             .store(in: &cancellables)
         
-        // for update market data
+        // For update market data
         $portfolioCoins
             .combineLatest(marketDataService.marketDataPublisher)
             .map(mapGlobalMarketData)
