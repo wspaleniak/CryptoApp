@@ -44,8 +44,14 @@ struct HomeView: View {
                         allCoinsList
                             .transition(.move(edge: .leading))
                     } else {
-                        portfolioCoinsList
-                            .transition(.move(edge: .trailing))
+                        ZStack(alignment: .top) {
+                            if vm.portfolioCoins.isEmpty && vm.searchText.isEmpty {
+                                portfolioEmptyText
+                            } else {
+                                portfolioCoinsList
+                            }
+                        }
+                        .transition(.move(edge: .trailing))
                     }
                     
                     Spacer(minLength: 0)
@@ -111,6 +117,7 @@ extension HomeView {
                     .onTapGesture {
                         segueToDetailView(coin: coin)
                     }
+                    .listRowBackground(Color.theme.background)
             }
         }
         .listStyle(PlainListStyle())
@@ -124,9 +131,19 @@ extension HomeView {
                     .onTapGesture {
                         segueToDetailView(coin: coin)
                     }
+                    .listRowBackground(Color.theme.background)
             }
         }
         .listStyle(PlainListStyle())
+    }
+    
+    private var portfolioEmptyText: some View {
+        Text("You have not added any coins to your portfolio yet. Click the + button to get started!")
+            .font(.callout)
+            .fontWeight(.medium)
+            .foregroundStyle(Color.theme.secondaryText)
+            .multilineTextAlignment(.center)
+            .padding(60)
     }
     
     private var columnTitles: some View {
@@ -196,7 +213,7 @@ extension HomeView {
 // MARK: - Preview
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
+        NavigationStack {
             HomeView()
                 .toolbar(.hidden, for: .navigationBar)
         }

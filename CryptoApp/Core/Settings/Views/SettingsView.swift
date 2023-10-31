@@ -17,9 +17,18 @@ struct SettingsView: View {
     
     var body: some View {
         NavigationStack {
-            List {
-                aboutSection
-                coingeckoSection
+            ZStack {
+                // background
+                Color.theme.background
+                    .ignoresSafeArea()
+                
+                // content
+                List {
+                    aboutSection
+                        .listRowBackground(Color.theme.background.opacity(0.5))
+                    coingeckoSection
+                        .listRowBackground(Color.theme.background.opacity(0.5))
+                }
             }
             .font(.headline)
             .tint(.blue)
